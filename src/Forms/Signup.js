@@ -29,11 +29,6 @@ const Signup = () => {
       onSubmit: (values , action) => {
         console.log(values);
         localStorage.setItem('user',JSON.stringify(values))
-        localStorage.setItem('first_name', values.first_name)
-        localStorage.setItem('last_name', values.last_name)
-        localStorage.setItem('email', values.email)
-        localStorage.setItem('mobile_no', values.mobile_no)
-        localStorage.setItem('password', values.password)
         toast.success("User added")
         navigate('/login')
          

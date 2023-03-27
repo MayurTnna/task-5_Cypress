@@ -24,25 +24,17 @@ const Login = () => {
       onSubmit: (values) => {
         console.log(values);
 
-        // const userName = localStorage.getItem("email") || "admin@admin.com";
-        // const userPassword = localStorage.getItem("password") || "Admin@123";
-        // if (values.email === userName && values.password === userPassword) {
-        //   toast.success("Login Success");
-        //   navigate("/product");
-        // } else {
-        //   toast.error("Invalid credentials");
-        // }
-
         const loggedUserData = JSON.parse(localStorage.getItem("user")); //converting again string to object to access properties
         if (
           values.email === loggedUserData.email &&
           values.password === loggedUserData.password
         ) {
+          localStorage.setItem("isLoggedIn", true)
           toast.success("Login Success");
           navigate("/product");
         } else {
-            toast.error("Invalid credentials");
-          }
+          toast.error("Invalid credentials");
+        }
       },
     });
 

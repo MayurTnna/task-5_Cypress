@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../assets/scss/UserProfile.scss"
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+const [userDetails , setUserDetails] = useState(JSON.parse(localStorage.getItem("user")))
 
 function UserProfile() {
-  const userFname = localStorage.getItem("first_name")
-  const userLname = localStorage.getItem("last_name")
-  const userPassword = localStorage.getItem("password")
-  const userMno = localStorage.getItem("mobile_no")
-  const userEmail = localStorage.getItem("email");
+  const navigate = useNavigate();
+  const userData = JSON.parse(localStorage.getItem("user"))
+  const handleLogOut = () => {
+    localStorage.removeItem("isLoggedIn")
+    toast.success("Logged out successfully")
+    navigate("/login")
+  }
+  const updatedUsers = {
+    ...userDetails,
+    
+  }
   return (
     <>
     <div>
@@ -15,7 +25,7 @@ function UserProfile() {
         <div className="modal">
           <div className="modal-container">
             <div className="modal-left">
-              <h1 className="modal-title">Welcome</h1>
+              <h1 className="modal-title">Welcome {userData.first_name}</h1>
               <p className="modal-desc"></p>
               <form>
                 <div className="input-block">
@@ -28,7 +38,7 @@ function UserProfile() {
                     name="first_name"
                     id="first_name"
                     placeholder="Name"
-                    value={userFname}
+                    value={userData.first_name}
                   />
                 </div>
                 <div className="input-block">
@@ -41,7 +51,7 @@ function UserProfile() {
                     name="last_name"
                     id="last_name"
                     placeholder="Name"
-                    value={userLname}
+                    value={userData.last_name}
                   />
                  
                 </div>
@@ -55,7 +65,7 @@ function UserProfile() {
                     name="email"
                     id="email"
                     placeholder="Email"
-                    value={userEmail}
+                    value={userData.email}
                   />
 
                   
@@ -71,7 +81,7 @@ function UserProfile() {
                     id="mobile_no"
                  
                     placeholder="mobile no"
-                    value={userMno}
+                    value={userData.mobile_no}
                     
                   />
 
@@ -87,14 +97,15 @@ function UserProfile() {
                     name="password"
                     id="password"
                     placeholder="Password"
-                    value={userPassword}
+                    value={userData.password}
                    
                   /> 
                 </div>
-                <div className="modal-buttons">
+                <div className="modal-buttons ">
                   <button className="input-button" type="submit">
                     Update
                   </button>
+                  <Button className='input-button' variant="danger" onClick={handleLogOut}>Logout</Button>{' '}
                 </div>
               </form>
              

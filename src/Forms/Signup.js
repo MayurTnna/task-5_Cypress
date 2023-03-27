@@ -27,7 +27,7 @@ const Signup = () => {
       validationSchema: SignupSchema,
 
       onSubmit: (values , action) => {
-        console.log(values);
+        // console.log(values);
         localStorage.setItem('user',JSON.stringify(values))
         toast.success("User added")
         navigate('/login')
@@ -35,6 +35,18 @@ const Signup = () => {
         action.resetForm();
       },
     });
+    const tempData = JSON.parse(localStorage.getItem("user"))
+    console.log(tempData)
+
+    const changedData =[
+      ...tempData,
+      {
+      first_name: values.first_name,
+      last_name: values.last_name,
+      email:values.email,
+      password: values.password,
+    }
+    ] 
   
 
   return (

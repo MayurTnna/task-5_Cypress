@@ -3,7 +3,7 @@ import "../assets/scss/UserProfile.scss"
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-const [userDetails , setUserDetails] = useState(JSON.parse(localStorage.getItem("user")))
+// const [userDetails , setUserDetails] = useState(JSON.parse(localStorage.getItem("user")))
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -13,10 +13,10 @@ function UserProfile() {
     toast.success("Logged out successfully")
     navigate("/login")
   }
-  const updatedUsers = {
-    ...userDetails,
+  // const updatedUsers = {
+  //   ...userDetails,
     
-  }
+  // }
   return (
     <>
     <div>

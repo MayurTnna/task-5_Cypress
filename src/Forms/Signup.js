@@ -3,18 +3,18 @@ import "../assets/scss/Signup.scss";
 import { useFormik } from "formik"; //for form handling
 import SignupSchema from "./schemas/SignupSchema";
 import { useNavigate } from "react-router-dom";
-import "../assets/scss/main.scss"
+import "../assets/scss/main.scss";
 import { toast } from "react-hot-toast";
 
 const Signup = () => {
-  const navigate = useNavigate()
-  const handleNavigate = () =>{
-    navigate("../login")
-  }
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("../login");
+  };
   const initialValues = {
     // passing name attribute here for every input field
     first_name: "",
-    last_name:"",
+    last_name: "",
     email: "",
     mobile_no: "",
     password: "",
@@ -23,38 +23,33 @@ const Signup = () => {
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
-      initialValues: initialValues,
+      initialValues,
       validationSchema: SignupSchema,
 
-      onSubmit: (values , action) => {
+      onSubmit: (values, action) => {
+        const tempData = JSON.parse(localStorage.getItem("user"));
+        const changedData = [
+          ...tempData,
+          {
+            first_name: values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            password: values.password,
+          },
+        ];
         // console.log(values);
-        
-        toast.success("User added")
-        navigate('/login')
-         
-        action.resetForm();
-     
-   
-    const tempData = JSON.parse(localStorage.getItem("user"))
-    console.log(tempData)
+        const users = temp.filter((item) => item.email === values.email);
+        const userEmail = users.length > 0;
 
-    const changedData =[
-      ...tempData,
-      {
-      first_name: values.first_name,
-      last_name: values.last_name,
-      email:values.email,
-      password: values.password,
-    }
-    ]
-    tempData.map((item)=>{
-    if(item.email === values.email){
-      toast.error("User already exist")
-      console.log("already")
-    }})
-    localStorage.setItem('user',JSON.stringify(changedData))
-   },
-   });
+        if (userEmail) {
+          toast.error("Email already exists ");
+        } else {
+          toast.success("successfully signedUp");
+          localStorage.setItem("Users", JSON.stringify(changedData));
+          navigate("/login");
+        }
+      },
+    });
 
   return (
     <>
@@ -81,7 +76,9 @@ const Signup = () => {
                   />
                   <div className="float-end">
                     {errors.first_name && touched.first_name ? (
-                      <p className="form-error float-end">{errors.first_name}</p>
+                      <p className="form-error float-end">
+                        {errors.first_name}
+                      </p>
                     ) : (
                       <></>
                     )}
@@ -141,7 +138,6 @@ const Signup = () => {
                     autoComplete="off"
                     name="mobile_no"
                     id="mobile_no"
-                    
                     placeholder="mobile no"
                     value={values.mobile_no}
                     onChange={handleChange}
@@ -197,7 +193,9 @@ const Signup = () => {
 
                   <div className="float-end">
                     {errors.confirm_password && touched.confirm_password ? (
-                      <p className="form-error float-end">{errors.confirm_password}</p>
+                      <p className="form-error float-end">
+                        {errors.confirm_password}
+                      </p>
                     ) : (
                       <></>
                     )}
@@ -213,7 +211,10 @@ const Signup = () => {
                 </div>
               </form>
               <p className="sign-up">
-                Already have an account?  <a href="#" onClick={handleNavigate}>Sign In now</a>
+                Already have an account?{" "}
+                <a href="#" onClick={handleNavigate}>
+                  Sign In now
+                </a>
               </p>
             </div>
             <div className="modal-right">

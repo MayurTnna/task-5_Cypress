@@ -13,10 +13,13 @@ function UserProfile() {
     toast.success("Logged out successfully")
     navigate("/login")
   }
-  // const updatedUsers = {
-  //   ...userDetails,
-    
-  // }
+  const loggedUser = userData.find((user) => user.isLoggedIn===true)
+  const updatedUser =[
+    first_name = loggedUser.first_name,
+    last_name = loggedUser.last_name,
+    mobile_no=loggedUser.mobile_no,
+    email = loggedUser.email
+  ]
   return (
     <>
     <div>

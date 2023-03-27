@@ -28,13 +28,13 @@ const Signup = () => {
 
       onSubmit: (values , action) => {
         // console.log(values);
-        localStorage.setItem('user',JSON.stringify(values))
+        
         toast.success("User added")
         navigate('/login')
          
         action.resetForm();
-      },
-    });
+     
+   
     const tempData = JSON.parse(localStorage.getItem("user"))
     console.log(tempData)
 
@@ -46,8 +46,15 @@ const Signup = () => {
       email:values.email,
       password: values.password,
     }
-    ] 
-  
+    ]
+    tempData.map((item)=>{
+    if(item.email === values.email){
+      toast.error("User already exist")
+      console.log("already")
+    }})
+    localStorage.setItem('user',JSON.stringify(changedData))
+   },
+   });
 
   return (
     <>

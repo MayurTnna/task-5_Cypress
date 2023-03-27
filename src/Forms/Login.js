@@ -1,32 +1,50 @@
 import React from "react";
 import "../assets/scss/Login.scss";
 import { useFormik } from "formik"; //for form handling
-import SignupSchema, { mobile_no } from "./schemas/SignupSchema";
+import SignupSchema, { LoginSchema, mobile_no } from "./schemas/SignupSchema";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
-    const navigate = useNavigate()
-    const handleNavigate = () =>{
-        navigate("../signup")
-    }
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("../signup");
+  };
   const initialValues = {
     // passing name attribute here for every input field
-    name: "",
     email: "",
     password: "",
-    confirm_password: "",
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
-      validationSchema: SignupSchema,
-      onSubmit: (values , action) => {
+      validationSchema: LoginSchema,
+
+      onSubmit: (values) => {
         console.log(values);
-        action.resetForm();
+
+        // const userName = localStorage.getItem("email") || "admin@admin.com";
+        // const userPassword = localStorage.getItem("password") || "Admin@123";
+        // if (values.email === userName && values.password === userPassword) {
+        //   toast.success("Login Success");
+        //   navigate("/product");
+        // } else {
+        //   toast.error("Invalid credentials");
+        // }
+
+        const loggedUserData = JSON.parse(localStorage.getItem("user")); //converting again string to object to access properties
+        if (
+          values.email === loggedUserData.email &&
+          values.password === loggedUserData.password
+        ) {
+          toast.success("Login Success");
+          navigate("/product");
+        } else {
+            toast.error("Invalid credentials");
+          }
       },
     });
-  
 
   return (
     <>
@@ -84,19 +102,17 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="modal-buttons">
-                  <a  onClick={handleNavigate} className="">
-                    create new    
+                  <a onClick={handleNavigate} className="/signup">
+                    create new
                   </a>
                   <button className="input-button" type="submit">
-                    Registration
+                    Log in
                   </button>
                 </div>
               </form>
               <p className="sign-up">
-               
-             <a href="#"  >forgot Password</a>
+                <a href="#">forgot Password</a>
               </p>
-            
             </div>
             <div className="modal-right">
               <img

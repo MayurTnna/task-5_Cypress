@@ -5,8 +5,13 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate()
+  const handleNavigate = () =>{
+    navigate("/UserProfile")
+  }
   return (
     <Navbar className="text-light" variant="dark" expand="lg">
       <Container fluid>
@@ -23,7 +28,7 @@ function Header() {
             </Link>
           </Nav>
           <Form className="d-flex">
-            <Button variant="dark">
+            <Button href="" onClick={handleNavigate} variant="dark">
               <CgProfile />
             </Button>
           </Form>

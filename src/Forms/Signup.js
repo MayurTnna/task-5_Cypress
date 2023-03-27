@@ -4,6 +4,7 @@ import { useFormik } from "formik"; //for form handling
 import SignupSchema from "./schemas/SignupSchema";
 import { useNavigate } from "react-router-dom";
 import "../assets/scss/main.scss"
+import { toast } from "react-hot-toast";
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -27,6 +28,15 @@ const Signup = () => {
 
       onSubmit: (values , action) => {
         console.log(values);
+        localStorage.setItem('user',JSON.stringify(values))
+        localStorage.setItem('first_name', values.first_name)
+        localStorage.setItem('last_name', values.last_name)
+        localStorage.setItem('email', values.email)
+        localStorage.setItem('mobile_no', values.mobile_no)
+        localStorage.setItem('password', values.password)
+        toast.success("User added")
+        navigate('/login')
+         
         action.resetForm();
       },
     });
@@ -42,7 +52,7 @@ const Signup = () => {
               <p className="modal-desc"></p>
               <form onSubmit={handleSubmit}>
                 <div className="input-block">
-                  <label htmlFor="name" className="input-label">
+                  <label htmlFor="first_name" className="input-label">
                     FIRST NAME
                   </label>
                   <input
@@ -64,7 +74,7 @@ const Signup = () => {
                   </div>
                 </div>
                 <div className="input-block">
-                  <label htmlFor="name" className="input-label">
+                  <label htmlFor="last_name" className="input-label">
                     LAST NAME
                   </label>
                   <input
@@ -109,15 +119,15 @@ const Signup = () => {
                   </div>
                 </div>
                 <div className="input-block">
-                  <label htmlFor="email" className="input-label">
+                  <label htmlFor="mobile_no" className="input-label">
                     mobile no
                   </label>
                   <input
-                    type="number  "
+                    type="string"
                     autoComplete="off"
                     name="mobile_no"
                     id="mobile_no"
-                    pattern="[0-9]{3}-[0-9]{2}-[0-9]"
+                    
                     placeholder="mobile no"
                     value={values.mobile_no}
                     onChange={handleChange}

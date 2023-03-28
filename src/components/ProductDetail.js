@@ -15,7 +15,7 @@ function ProductDetail() {
   const [data, setData] = useState();
   const { id } = useParams();
 
-  console.log(id);
+  // console.log(id);
   useEffect(() => {
     axios
       .get(`https://dummyjson.com/products/${id}`)
@@ -59,7 +59,7 @@ function ProductDetail() {
                   <RiStarSFill />
                 </div>
               </Badge>
-              {console.log(data)}
+              {/* {console.log(data)} */}
             </ListGroup.Item>
             <ListGroup.Item className="text-success">
               {data.discountPercentage}%

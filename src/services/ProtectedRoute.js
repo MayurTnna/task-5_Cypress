@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 
 const ProtectedRoute = () => {
    
-    const Auth = localStorage.getItem("isLoggedIn") 
+    const Auth = localStorage.getItem("user") 
     return Auth ?<Outlet/> : <Navigate to={"/login"}/>
 }
 

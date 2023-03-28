@@ -4,6 +4,8 @@ import { useFormik } from "formik"; //for form handling
 import SignupSchema, { LoginSchema, mobile_no } from "./schemas/SignupSchema";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import decryption from "../Security/Decryption";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,19 +24,38 @@ const Login = () => {
       validationSchema: LoginSchema,
 
       onSubmit: (values) => {
-        console.log(values);
+        
 
-        const loggedUserData = JSON.parse(localStorage.getItem("user")); //converting again string to object to access properties
+        const loggedUserData = JSON.parse(localStorage.getItem("user")); //converting again string to object to access properties; 
+        loggedUserData.map((item) => {
+        // console.log(we)
+
+        
         if (
-          values.email === loggedUserData.email &&
-          values.password === loggedUserData.password
+          values.email === item.email &&
+          decryption(values.password ===item.password)
         ) {
-          localStorage.setItem("isLoggedIn", true)
+          const UpdatedUser = loggedUserData.map(item => {
+            if(item.email == values.email){
+              return {
+                ...item,
+                isLogin:true
+              }
+            }
+            else{
+              return {
+                ...item,
+                isLogin:false
+              }
+            }
+          })
+          localStorage.setItem("user", JSON.stringify(UpdatedUser))
           toast.success("Login Success");
           navigate("/product");
         } else {
           toast.error("Invalid credentials");
         }
+      })
       },
     });
 

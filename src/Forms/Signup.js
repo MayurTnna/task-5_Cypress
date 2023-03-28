@@ -5,12 +5,18 @@ import SignupSchema from "./schemas/SignupSchema";
 import { useNavigate } from "react-router-dom";
 import "../assets/scss/main.scss";
 import { toast } from "react-hot-toast";
+import Button from "react-bootstrap/esm/Button";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import encryption from "../Security/Encryption";
 
 const Signup = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate("../login");
   };
+  const [showPassword, setShowPassword] = useState("false");
+  const [showConPassword, setShowConPassword] = useState("false");
   const initialValues = {
     // passing name attribute here for every input field
     first_name: "",
@@ -25,27 +31,32 @@ const Signup = () => {
     useFormik({
       initialValues,
       validationSchema: SignupSchema,
-
-      onSubmit: (values, action) => {
-        const tempData = JSON.parse(localStorage.getItem("user"));
-        const changedData = [
+      
+      onSubmit: (values) => {
+        const tempData = JSON.parse(localStorage.getItem("user")) || [];
+        const encryptedPassword = encryption(values.password)
+        console.log(tempData);
+        const changedData = tempData && [
           ...tempData,
           {
             first_name: values.first_name,
             last_name: values.last_name,
             email: values.email,
-            password: values.password,
+            mobile_no: values.mobile_no,
+            password: encryptedPassword,
           },
         ];
         // console.log(values);
-        const users = temp.filter((item) => item.email === values.email);
+        const users = tempData.filter((item) => item.email === values.email);
+        //filtering data based on if email is already isnt existed in Local storage
+        console.log(users);
         const userEmail = users.length > 0;
 
         if (userEmail) {
-          toast.error("Email already exists ");
+          toast.error("user already exists ");
         } else {
           toast.success("successfully signedUp");
-          localStorage.setItem("Users", JSON.stringify(changedData));
+          localStorage.setItem("user", JSON.stringify(changedData));
           navigate("/login");
         }
       },
@@ -157,7 +168,7 @@ const Signup = () => {
                     Password
                   </label>
                   <input
-                    type="password"
+                    type={showPassword ? "password" : "text"}
                     autoComplete="off"
                     name="password"
                     id="password"
@@ -166,14 +177,22 @@ const Signup = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
+                    <Button
+                      variant={"ghost"}
+                      className=" text-center toggle-password  "
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <FaEyeSlash />: <FaEye />}
+                    </Button>
 
                   <div className="float-end">
                     {errors.password && touched.password ? (
-                      <p className="form-error float-end">{errors.password}</p>
+                      <p className="form-error float-center">{errors.password}</p>
                     ) : (
                       <></>
                     )}
                   </div>
+                    
                 </div>
                 <div className="input-block">
                   {/* for attribute's value should match value of id */}
@@ -181,7 +200,7 @@ const Signup = () => {
                     Confirm Password
                   </label>
                   <input
-                    type="password"
+                    type={showPassword ? "password" : "text"}
                     autoComplete="off"
                     name="confirm_password"
                     id="confirm_password"
@@ -193,20 +212,24 @@ const Signup = () => {
 
                   <div className="float-end">
                     {errors.confirm_password && touched.confirm_password ? (
-                      <p className="form-error float-end">
+                      <p className="form-error float-center">
                         {errors.confirm_password}
                       </p>
                     ) : (
                       <></>
                     )}
                   </div>
+                    <Button
+                      variant={"ghost"}
+                      className=" toggle-password   "
+                      onClick={() => setShowConPassword(!showConPassword)}
+                    >
+                      {showConPassword ? <FaEyeSlash /> : <FaEye />}
+                    </Button>
                 </div>
                 <div className="modal-buttons">
-                  <a href="https://myaccount.google.com/" className="">
-                    Want to register using Gmail?
-                  </a>
-                  <button className="input-button" type="submit">
-                    Registration
+                  <button className="input-button_signup" type="submit">
+                    Register
                   </button>
                 </div>
               </form>

@@ -15,7 +15,10 @@ function Header() {
   return (
     <Navbar className="text-light" variant="dark" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+        <Link to="/product">
+        
+        <Navbar.Brand href="#">Buzzzz-arrrr</Navbar.Brand>
+        </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -26,12 +29,12 @@ function Header() {
             <Link to={"/product"}>
             <Nav.Link href="#action1">Home</Nav.Link>
             </Link>
-          </Nav>
           <Form className="d-flex">
-            <Button href="" onClick={handleNavigate} variant="dark">
-              <CgProfile />
+            <Button href="" onClick={handleNavigate} variant="dark" >
+              <CgProfile className="text-info" />
             </Button>
           </Form>
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

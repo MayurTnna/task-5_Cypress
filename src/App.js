@@ -9,6 +9,7 @@ import Login from "./Forms/Login";
 import UserProfile from "./Forms/UserProfile";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./services/ProtectedRoute";
+import ForgotPass from "./Forms/forgotPassword/ForgotPass";
 function App() {
   return (
     <div className="App">
@@ -20,13 +21,15 @@ function App() {
             <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/detail/:id" element={<ProductDetail />} />
           <Route path="/product" element={<ProductDisplay />} />
-          </Route>
+          </Route> 
 
-          <Route path="/login" exact element={<Login />} />
+           <Route path="/login" exact element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+        
         </Routes>
         
-        {/* <ProductDisplay/> */}
+         {/* <ProductDisplay/>  */}
+
       </BrowserRouter>
     </div>
   );

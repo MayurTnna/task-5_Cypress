@@ -6,6 +6,8 @@ import Navbar from "react-bootstrap/Navbar";
 import { CgProfile } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "../assets/scss/Header.scss"
+import { AiOutlineShoppingCart  } from "react-icons/ai";
 
 function Header() {
   const navigate = useNavigate()
@@ -13,11 +15,11 @@ function Header() {
     navigate("/UserProfile")
   }
   return (
-    <Navbar className="text-light" variant="dark" expand="lg">
+    <Navbar className=" indexz" variant="dark" expand="lg">
       <Container fluid>
         <Link to="/product">
         
-        <Navbar.Brand href="#">Buzzzz-arrrr</Navbar.Brand>
+        <Navbar.Brand href="/product" >Buzzzzarrrr<span className="text-warning px-1"><AiOutlineShoppingCart/></span></Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -29,12 +31,12 @@ function Header() {
             <Link to={"/product"}>
             <Nav.Link href="#action1">Home</Nav.Link>
             </Link>
+          </Nav>
           <Form className="d-flex">
             <Button href="" onClick={handleNavigate} variant="dark" >
               <CgProfile className="text-info" />
             </Button>
           </Form>
-          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

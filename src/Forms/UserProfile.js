@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "../assets/scss/UserProfile.scss";
 import Button from "react-bootstrap/Button";
-import { json, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useFormik } from "formik";
 import { userProfileSchema } from "./schemas/SignupSchema";
-import { FaEye, faEyeSlash } from "react-icons/fa";
+import Header from "../components/Header";
+
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -74,6 +75,9 @@ function UserProfile() {
   // console.log(updatedUser);
   return (
     <>
+    
+    <Header/>
+   
       <div>
         <>
           <div className="UserProfile_container">

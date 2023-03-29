@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "../assets/scss/Login.scss";
 import { useFormik } from "formik"; //for form handling
 import SignupSchema, { LoginSchema, mobile_no } from "./schemas/SignupSchema";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import decryption from "../Security/Decryption";
-
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Button from "react-bootstrap/esm/Button";
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState("false");
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate("../signup");
@@ -24,38 +26,37 @@ const Login = () => {
       validationSchema: LoginSchema,
 
       onSubmit: (values) => {
-        
-
-        const loggedUserData = JSON.parse(localStorage.getItem("user")); //converting again string to object to access properties; 
+        const loggedUserData = JSON.parse(localStorage.getItem("user")); //converting again string to object to access properties;
+        // console.log(loggedUserData);
+        // const userlog=loggedUserData.find((item)=> decryption("U2FsdGVkX18z7MjJxekCKPu/NUHDPPTew1whw5ZNFL0=") === values.password)
+        // conso
         loggedUserData.map((item) => {
-        // console.log(we)
-
-        
-        if (
-          values.email === item.email &&
-          decryption(values.password ===item.password)
-        ) {
-          const UpdatedUser = loggedUserData.map(item => {
-            if(item.email == values.email){
-              return {
-                ...item,
-                isLogin:true
+          console.log(values.password);
+          if (
+            values.email === item.email &&
+            decryption(item.password) === values.password
+          ) {
+            const UpdatedUser = loggedUserData.map((item) => {
+              if (item.email === values.email) {
+                console.log(decryption(item.password));
+                return {
+                  ...item,
+                  isLogin: true,
+                };
+              } else {
+                return {
+                  ...item,
+                  isLogin: false,
+                };
               }
-            }
-            else{
-              return {
-                ...item,
-                isLogin:false
-              }
-            }
-          })
-          localStorage.setItem("user", JSON.stringify(UpdatedUser))
-          toast.success("Login Success");
-          navigate("/product");
-        } else {
-          toast.error("Invalid credentials");
-        }
-      })
+            });
+            localStorage.setItem("user", JSON.stringify(UpdatedUser));
+            toast.success("Login Success");
+            navigate("/product");
+          } else {
+            toast.error("Invalid credentials");
+          }
+        });
       },
     });
 
@@ -96,7 +97,7 @@ const Login = () => {
                     Password
                   </label>
                   <input
-                    type="password"
+                    type={showPassword ? "password" : "text"}
                     autoComplete="off"
                     name="password"
                     id="password"
@@ -105,6 +106,13 @@ const Login = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
+                  <Button
+                    variant={"ghost"}
+                    className=" text-center toggle-password  "
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </Button>
 
                   <div className="float-end">
                     {errors.password && touched.password ? (

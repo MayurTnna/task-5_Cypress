@@ -4,33 +4,52 @@ import "../forgotPassword/forgotPassword.scss";
 import Button from "react-bootstrap/esm/Button";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { forgotPasswordSchema } from "../schemas/SignupSchema";
+import { toast } from "react-hot-toast";
+import decryption from "../../Security/Decryption";
+import encryption from "../../Security/Encryption";
 
 const ForgotPass = () => {
   const [showPassword, setShowPassword] = useState("false");
   const [showNewPassword, setShowNewPassword] = useState("false");
   const [showConPassword, setShowConPassword] = useState("false");
-
-  // const userData = JSON.parse(localStorage.getItem("user")) || [];
-  // // console.log(userData)
-  // const loggedUser = userData.find((user) => user.isLogin === true || []);
-  // // console.log(loggedUser)
   const initialValues = {
     current_password: "",
     new_password: "",
     confirm_password: "",
   };
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    // validationSchema:forgotPasswordSchema
+  const userData = JSON.parse(localStorage.getItem("user")) || [];
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: forgotPasswordSchema,
 
-    onSubmit: (values) = {
+      onSubmit: (values) => {
+        const activeUser = userData.find((user) => user.isLogin === true) || [];
+        console.log(activeUser.password);
 
-    }
-
-
-
-    
-  })
+        const changedPassword = userData.map((item) => {
+          if (item.isLogin === true) {
+            if (decryption(activeUser.password) === values.current_password) {
+              if (values.current_password !== values.new_password) {
+                toast.success("Password updated");
+                return {
+                  ...item,
+                  password: encryption(values.new_password),
+                };
+              } else {
+                toast.error("Same password!");
+              }
+            } else {
+              toast.error("not a user");
+            }
+          } else {
+            return item;
+          }
+          return item;
+        });
+        localStorage.setItem("user", JSON.stringify(changedPassword));
+      },
+    });
   return (
     <>
       <div className="forgot_container">
@@ -137,7 +156,7 @@ const ForgotPass = () => {
                   <button
                     className="input-button_forgot"
                     type="submit"
-                    onClick={""}
+                    onClick={handleSubmit}
                   >
                     Submit
                   </button>

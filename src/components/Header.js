@@ -17,7 +17,7 @@ function Header() {
   return (
     <Navbar className=" indexz" variant="dark" expand="lg">
       <Container fluid>
-        <Link to="/product">
+        <Link to="/product" className="text-decoration-none">
         
         <Navbar.Brand href="/product" className="head-section " >Buzzzzarrrr<span className="text-light px-1 "><AiOutlineShoppingCart/></span></Navbar.Brand>
         </Link>

@@ -1,77 +1,168 @@
-import React, { useEffect, useState } from "react";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import Header from "./Header";
-import { RiStarSFill } from "react-icons/ri";
+import {
+  Box,
+  Container,
+  Stack,
+  Text,
+  Flex,
+  VStack,
+  Button,
+  Heading,
+  SimpleGrid,
+  StackDivider,
+  List,
+  ListItem,
+  ChakraProvider,
+} from "@chakra-ui/react";
+import { MdLocalShipping } from "react-icons/md";
 import Badge from "react-bootstrap/Badge";
+import { RiStarSFill } from "react-icons/ri";
 import "../assets/scss/main.scss";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import { Link } from "react-router-dom";
+import "../assets/scss/dummyDetail.scss";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-
-
-
-function ProductDetail() {
+const DummyDetail = () => {
   const [data, setData] = useState();
   const { id } = useParams();
 
-  // console.log(id);
   useEffect(() => {
     axios
       .get(`https://dummyjson.com/products/${id}`)
-      .then((res) => {
-        setData(res.data);
+      .then((response) => {
+        setData(response.data);
       })
       .catch((error) => {
         console.error(error.message);
       });
   }, []);
-
+  console.log(data);
   return (
     <>
-    <Header/>
- 
-    <div className=" bg-dark row">
-      {data && (
-        <Card className="text-dark col-lg-2 m-auto">
-          <Carousel>
-            {data.images.map((item) => (
-              <div>
-                <img src={item} />
-              </div>
-            ))}
-          </Carousel>
+      <div className="chakra">
+        <ChakraProvider className="chakra">
+          {data && (
+            <Container className="chakra-bg" maxW={"7xl"}>
+              {/* <Button className="float-start mt-4">back</Button> */}
+              <SimpleGrid
+                columns={{ base: 1, lg: 2 }}
+                spacing={{ base: 8, md: 10 }}
+                py={{ base: 18, md: 24 }}
+              >
+                <Flex>
+                  <Carousel>
+                    {data.images.map((item) => (
+                      <div>
+                        <img src={item} />
+                      </div>
+                    ))}
+                  </Carousel>
+                </Flex>
+                <Stack spacing={{ base: 6, md: 10 }}>
+                  <Box as={"header"}>
+                    <Heading
+                      lineHeight={1.1}
+                      fontWeight={600}
+                      className="gradient-text"
+                      fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+                      _hover={{
+                        transform: "translatex(8px)",
+                        fontWeight: "900",
+                        // boxShadow: "lg",
+                      }}
+                    >
+                      {data.title}
+                    </Heading>
+                    <Text
+                      color={("gray.900", "gray.400")}
+                      fontWeight={300}
+                      fontSize={"2xl"}
+                    >
+                      ${data.price} USD
+                    </Text>
+                  </Box>
 
-          <Card.Body>
-            <Card.Title>{data.title}</Card.Title>
-            <Card.Text>{data.description}</Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush b-0">
-            <ListGroup.Item>{data.brand}</ListGroup.Item>
-            <ListGroup.Item>{data.category}</ListGroup.Item>
-            <ListGroup.Item className="text-danger">
-              {data.price}$
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Badge pill bg="warning" text="dark">
-                <div className="d-flex align-items-center justify-content-center">
-                  {data.rating}
-                  <RiStarSFill />
-                </div>
-              </Badge>
-              {/* {console.log(data)} */}
-            </ListGroup.Item>
-            <ListGroup.Item className="text-success">
-              {data.discountPercentage}%
-            </ListGroup.Item>
-          </ListGroup>
-        </Card>
-      )}
-    </div>
-  </>
+                  <Stack
+                    spacing={{ base: 4, sm: 6 }}
+                    direction={"column"}
+                    divider={
+                      <StackDivider borderColor={("gray.200", "gray.600")} />
+                    }
+                  >
+                    <VStack spacing={{ base: 4, sm: 6 }}>
+                      <Text fontSize={"lg"} color={("gray.900", "gray.400")}>
+                        {data.description}
+                      </Text>
+                    </VStack>
+                    <Box>
+                      <Text
+                        fontSize={{ base: "16px", lg: "18px" }}
+                        //   color={("yellow.500", "yellow.300")}
+                        className="feature"
+                        fontWeight={"500"}
+                        textTransform={"uppercase"}
+                        mb={"4"}
+                      >
+                        Features
+                      </Text>
+
+                      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+                        <List spacing={2}>
+                          <ListItem color={("gray.900", "gray.400")}>
+                            <span className="text-light fw-bolder">
+                              Brand:{" "}
+                            </span>
+                            {data.brand}
+                          </ListItem>
+                          <ListItem>
+                            <Badge pill bg="warning" text="dark">
+                              <div className="d-flex align-items-center justify-content-center">
+                                {data.rating}
+                                <RiStarSFill />
+                              </div>
+                            </Badge>
+                          </ListItem>{" "}
+                        </List>
+                        <List spacing={2}>
+                          <ListItem color={("gray.900", "gray.400")}>
+                            <span className="text-light fw-bolder">
+                              Category:{" "}
+                            </span>
+                            {data.category}
+                          </ListItem>
+                          <ListItem className="text-success">
+                            {data.discountPercentage}% off
+                          </ListItem>
+                          <ListItem className="d-flex justify-content-center"></ListItem>
+                        </List>
+                      </SimpleGrid>
+                    </Box>
+                  </Stack>
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent={"center"}
+                  >
+                    <MdLocalShipping className="text-light" />
+                    <Text className="text-light">
+                      2-3 business days delivery
+                    </Text>
+                  </Stack>
+                </Stack>
+              </SimpleGrid>
+              <Link to="/product">
+                <Button className="mb-2 text-danger" variant={"ghost"}>
+                  back
+                </Button>
+              </Link>
+            </Container>
+          )}
+        </ChakraProvider>
+      </div>
+    </>
   );
-}
-
-export default ProductDetail;
+};
+export default DummyDetail;

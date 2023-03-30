@@ -4,6 +4,11 @@
     .head-section {
         cursor: progress;
         text-decoration: none;
-
+        background: linear-gradient(to right,  #eedd44,
+        #cf23cf,  #ff6b08, #f32170);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }
 }

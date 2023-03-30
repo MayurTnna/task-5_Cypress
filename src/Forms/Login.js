@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "../assets/scss/Login.scss";
 import { useFormik } from "formik"; //for form handling
-import SignupSchema, { LoginSchema, mobile_no } from "./schemas/SignupSchema";
+import { LoginSchema } from "./schemas/UserSchema";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import decryption from "../Security/Decryption";
+import { decryption } from "../utils/Privacy";
+import { encryption } from "../utils/Privacy";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Button from "react-bootstrap/esm/Button";
 
@@ -131,9 +132,6 @@ const Login = () => {
                   </button>
                 </div>
               </form>
-              <p className="sign-up">
-                <a href="#">forgot Password</a>
-              </p>
             </div>
             <div className="modal-right">
               <img

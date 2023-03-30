@@ -28,9 +28,6 @@ function Header() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Link to={"/product"}>
-            <Nav.Link href="#action1" className="head-section ">Home</Nav.Link>
-            </Link>
           </Nav>
           <Form className="d-flex">
             <Button href="" onClick={handleNavigate} variant="dark" >

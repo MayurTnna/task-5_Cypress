@@ -1,14 +1,14 @@
 import React from "react";
 import "../assets/scss/Signup.scss";
 import { useFormik } from "formik"; //for form handling
-import SignupSchema from "./schemas/SignupSchema";
+import SignupSchema from "./schemas/UserSchema";
 import { useNavigate } from "react-router-dom";
 import "../assets/scss/main.scss";
 import { toast } from "react-hot-toast";
 import Button from "react-bootstrap/esm/Button";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import encryption from "../Security/Encryption";
+import { encryption } from "../utils/Privacy";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -31,10 +31,10 @@ const Signup = () => {
     useFormik({
       initialValues,
       validationSchema: SignupSchema,
-      
+
       onSubmit: (values) => {
         const tempData = JSON.parse(localStorage.getItem("user")) || [];
-        const encryptedPassword = encryption(values.password)
+        const encryptedPassword = encryption(values.password);
         console.log(tempData);
         const changedData = tempData && [
           ...tempData,
@@ -177,22 +177,23 @@ const Signup = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                    <Button
-                      variant={"ghost"}
-                      className=" text-center toggle-password  "
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? <FaEyeSlash />: <FaEye />}
-                    </Button>
+                  <Button
+                    variant={"ghost"}
+                    className=" text-center toggle-password  "
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </Button>
 
                   <div className="float-end">
                     {errors.password && touched.password ? (
-                      <p className="form-error float-center">{errors.password}</p>
+                      <p className="form-error float-center">
+                        {errors.password}
+                      </p>
                     ) : (
                       <></>
                     )}
                   </div>
-                    
                 </div>
                 <div className="input-block">
                   {/* for attribute's value should match value of id */}
@@ -219,13 +220,13 @@ const Signup = () => {
                       <></>
                     )}
                   </div>
-                    <Button
-                      variant={"ghost"}
-                      className=" toggle-password   "
-                      onClick={() => setShowConPassword(!showConPassword)}
-                    >
-                      {showConPassword ? <FaEyeSlash /> : <FaEye />}
-                    </Button>
+                  <Button
+                    variant={"ghost"}
+                    className=" toggle-password   "
+                    onClick={() => setShowConPassword(!showConPassword)}
+                  >
+                    {showConPassword ? <FaEyeSlash /> : <FaEye />}
+                  </Button>
                 </div>
                 <div className="modal-buttons">
                   <button className="input-button_signup" type="submit">

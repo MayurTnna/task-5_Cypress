@@ -3,10 +3,9 @@ import { useFormik } from "formik";
 import "../forgotPassword/forgotPassword.scss";
 import Button from "react-bootstrap/esm/Button";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { forgotPasswordSchema } from "../schemas/SignupSchema";
+import { forgotPasswordSchema } from "../schemas/UserSchema";
 import { toast } from "react-hot-toast";
-import decryption from "../../Security/Decryption";
-import encryption from "../../Security/Encryption";
+import { decryption } from "../../utils/Privacy";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPass = () => {
@@ -18,7 +17,7 @@ const ForgotPass = () => {
     new_password: "",
     confirm_password: "",
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("user")) || [];
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -34,10 +33,10 @@ const ForgotPass = () => {
             if (decryption(activeUser.password) === values.current_password) {
               if (values.current_password !== values.new_password) {
                 toast.success("Password updated");
-                navigate("/userprofile")
+                navigate("/userprofile");
                 return {
                   ...item,
-                  password: encryption(values.new_password),
+                  password: values.new_password,
                 };
               } else {
                 toast.error("Same password!");
@@ -171,7 +170,7 @@ const ForgotPass = () => {
             </div>
             <div className="modal-right">
               <img
-                src="https://images.unsplash.com/photo-1679615845580-8691c78fd7d3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60"
+                src="https://images.unsplash.com/photo-1570288464059-9afc7a4e1e15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cGVyc29uJTIwc2hvY2tlZHxlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60"
                 alt=""
               />
             </div>

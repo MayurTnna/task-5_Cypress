@@ -1,36 +1,34 @@
 import React, { useState } from "react";
 import "../assets/scss/UserProfile.scss";
 import Button from "react-bootstrap/Button";
-import { RiLockPasswordLine, RiLogoutCircleRLine} from "react-icons/ri";
-import {  useNavigate } from "react-router-dom";
+import { RiLockPasswordLine, RiLogoutCircleRLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useFormik } from "formik";
-import { userProfileSchema } from "./schemas/SignupSchema";
+import { userProfileSchema } from "./schemas/UserSchema";
 import Header from "../components/Header";
-
 
 function UserProfile() {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("user")) || [];
   // console.log(userData)
   const handleUpdatePassword = () => {
-    navigate("/forgotpassword")
-  }
+    navigate("/forgotpassword");
+  };
 
   const handleLogOut = () => {
     toast.success("Logged out successfully");
-   const userData = JSON.parse(localStorage.getItem("user"))
-   const updatedData = userData.map((item) => {
-    return{
-      ...item,
-      isLogin:false,
-    }
-   })
-   localStorage.setItem("user", JSON.stringify(updatedData))
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const updatedData = userData.map((item) => {
+      return {
+        ...item,
+        isLogin: false,
+      };
+    });
+    localStorage.setItem("user", JSON.stringify(updatedData));
     navigate("/login");
   };
   const loggedUser = userData.find((user) => user.isLogin === true || []);
-
 
   const initialValues = {
     // passing name attribute here for every input field
@@ -67,10 +65,10 @@ function UserProfile() {
                 email: values.email,
               };
             }
-          } else{
-            return{
+          } else {
+            return {
               ...item,
-            }
+            };
           }
         });
         localStorage.setItem("user", JSON.stringify(newData));
@@ -79,9 +77,8 @@ function UserProfile() {
   // console.log(updatedUser);
   return (
     <>
-    
-    <Header/>
-   
+      <Header />
+
       <div>
         <>
           <div className="UserProfile_container">
@@ -184,27 +181,29 @@ function UserProfile() {
                       </div>
                     </div>
                     <div className="modal-buttons   ">
-                    
                       <button className="input-button" type="submit">
                         Update
                       </button>
                       <div className="px-2">
-                      <Button
-                        className="input-button "
-                        variant="danger"
-                        onClick={handleLogOut}
-                      >
-                        Logout
-                      </Button>{" "}
+                        <Button
+                          className="input-button "
+                          variant="danger"
+                          onClick={handleLogOut}
+                        >
+                          Logout
+                        </Button>{" "}
                       </div>
                     </div>
-                      <Button
-                        className="input-button mt-2 "
-                        variant="danger"
-                        onClick={handleUpdatePassword}
-                      >
-                        Update Password<span className="px-1">< RiLockPasswordLine className=" mb-1"/></span>
-                      </Button>{" "}
+                    <Button
+                      className="input-button mt-2 "
+                      variant="danger"
+                      onClick={handleUpdatePassword}
+                    >
+                      Update Password
+                      <span className="px-1">
+                        <RiLockPasswordLine className=" mb-1" />
+                      </span>
+                    </Button>{" "}
                   </form>
                 </div>
                 <div className="modal-right">

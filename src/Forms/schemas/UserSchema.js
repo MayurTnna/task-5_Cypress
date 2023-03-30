@@ -56,7 +56,6 @@ export const userProfileSchema = Yup.object().shape({
     .required("Please enter your email"),
 });
 
-
 export const forgotPasswordSchema = Yup.object().shape({
   current_password: Yup.string()
     .min(8, "Password must be at least 8 characters")
@@ -79,8 +78,7 @@ export const forgotPasswordSchema = Yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
       "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
     )
-    .oneOf([Yup.ref("new_password"), null], "Password must match")
-
-})
+    .oneOf([Yup.ref("new_password"), null], "Password must match"),
+});
 
 export default SignUpSchema;

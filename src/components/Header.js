@@ -19,7 +19,7 @@ function Header() {
       <Container fluid>
         <Link to="/product">
         
-        <Navbar.Brand href="/product" >Buzzzzarrrr<span className="text-warning px-1"><AiOutlineShoppingCart/></span></Navbar.Brand>
+        <Navbar.Brand href="/product" className="head-section " >Buzzzzarrrr<span className="text-light px-1 "><AiOutlineShoppingCart/></span></Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -29,7 +29,7 @@ function Header() {
             navbarScroll
           >
             <Link to={"/product"}>
-            <Nav.Link href="#action1">Home</Nav.Link>
+            <Nav.Link href="#action1" className="head-section ">Home</Nav.Link>
             </Link>
           </Nav>
           <Form className="d-flex">

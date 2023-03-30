@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../assets/scss/UserProfile.scss";
 import Button from "react-bootstrap/Button";
+import { RiLockPasswordLine, RiLogoutCircleRLine} from "react-icons/ri";
 import {  useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useFormik } from "formik";
@@ -12,6 +13,9 @@ function UserProfile() {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem("user")) || [];
   // console.log(userData)
+  const handleUpdatePassword = () => {
+    navigate("/forgotpassword")
+  }
 
   const handleLogOut = () => {
     toast.success("Logged out successfully");
@@ -194,6 +198,13 @@ function UserProfile() {
                       </Button>{" "}
                       </div>
                     </div>
+                      <Button
+                        className="input-button mt-2 "
+                        variant="danger"
+                        onClick={handleUpdatePassword}
+                      >
+                        Update Password<span className="px-1">< RiLockPasswordLine className=" mb-1"/></span>
+                      </Button>{" "}
                   </form>
                 </div>
                 <div className="modal-right">

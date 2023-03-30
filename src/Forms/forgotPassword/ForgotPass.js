@@ -7,6 +7,7 @@ import { forgotPasswordSchema } from "../schemas/SignupSchema";
 import { toast } from "react-hot-toast";
 import decryption from "../../Security/Decryption";
 import encryption from "../../Security/Encryption";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPass = () => {
   const [showPassword, setShowPassword] = useState("false");
@@ -17,6 +18,7 @@ const ForgotPass = () => {
     new_password: "",
     confirm_password: "",
   };
+  const navigate = useNavigate()
   const userData = JSON.parse(localStorage.getItem("user")) || [];
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -32,6 +34,7 @@ const ForgotPass = () => {
             if (decryption(activeUser.password) === values.current_password) {
               if (values.current_password !== values.new_password) {
                 toast.success("Password updated");
+                navigate("/userprofile")
                 return {
                   ...item,
                   password: encryption(values.new_password),

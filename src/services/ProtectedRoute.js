@@ -4,8 +4,9 @@ import { Navigate } from 'react-router-dom'
 
 const ProtectedRoute = () => {
    
-    const Auth = localStorage.getItem("user") 
-    return Auth ?<Outlet/> : <Navigate to={"/login"}/>
+    const users = JSON.parse(localStorage.getItem("user")) 
+    const Auth = users.some((item) => item.isLogin === true)
+    return Auth ? <Outlet/> : <Navigate to={"/login"}/>
 }
 
 export default ProtectedRoute

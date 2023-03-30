@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import ProductDisplay from "./components/ProductDisplay";
 import ProductDetail from "./components/ProductDetail";
@@ -21,11 +20,11 @@ function App() {
             <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/detail/:id" element={<ProductDetail />} />
           <Route path="/product" element={<ProductDisplay />} />
+          <Route path="/forgotpassword" element={<ForgotPass/>}/>
           </Route> 
 
            <Route path="/login" exact element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/forgotpassword" element={<ForgotPass/>}/>
         
         </Routes>
         

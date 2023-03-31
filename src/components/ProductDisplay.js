@@ -69,7 +69,7 @@ const ProductDisplay = () => {
             <Card.Link href="#">
               <Link to={`/detail/${item.id}`}>
                 {" "}
-                <Button className="glow-on-hover" variant="dark">
+                <Button className="glow-on-hover" id="click" variant="dark">
                   View
                 </Button>
               </Link>

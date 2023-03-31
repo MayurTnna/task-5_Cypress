@@ -69,7 +69,7 @@ const Login = () => {
             <div className="modal-left">
               <h1 className="modal-title">Login</h1>
               <p className="modal-desc"></p>
-              <form onSubmit={handleSubmit}>
+              <form id="form_login" onSubmit={handleSubmit}>
                 <div className="input-block">
                   <label htmlFor="email" className="input-label">
                     Email
@@ -127,7 +127,11 @@ const Login = () => {
                   <a onClick={handleNavigate} className="/signup">
                     create new
                   </a>
-                  <button className="input-button" type="submit">
+                  <button
+                    className="input-button_login"
+                    id="submit"
+                    type="submit"
+                  >
                     Log in
                   </button>
                 </div>

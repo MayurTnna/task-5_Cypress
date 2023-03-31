@@ -70,7 +70,7 @@ const Signup = () => {
             <div className="modal-left">
               <h1 className="modal-title">Signup</h1>
               <p className="modal-desc"></p>
-              <form onSubmit={handleSubmit}>
+              <form id="form_signup" onSubmit={handleSubmit}>
                 <div className="input-block">
                   <label htmlFor="first_name" className="input-label">
                     FIRST NAME
@@ -229,7 +229,9 @@ const Signup = () => {
                   </Button>
                 </div>
                 <div className="modal-buttons">
-                  <button className="input-button_signup" type="submit">
+                  <button className="input-button_signup" 
+                  id="submit" 
+                  type="submit">
                     Register
                   </button>
                 </div>

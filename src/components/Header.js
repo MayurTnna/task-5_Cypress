@@ -30,7 +30,7 @@ function Header() {
           >
           </Nav>
           <Form className="d-flex">
-            <Button href="" onClick={handleNavigate} variant="dark" >
+            <Button id="userinfoClick" href="" onClick={handleNavigate} variant="dark" >
               <CgProfile className="text-info" />
             </Button>
           </Form>

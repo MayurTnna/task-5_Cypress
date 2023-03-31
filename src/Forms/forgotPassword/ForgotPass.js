@@ -159,6 +159,7 @@ const ForgotPass = () => {
                     className="input-button_forgot"
                     type="submit"
                     onClick={handleSubmit}
+                    id="updatePassword"
                   >
                     Submit
                   </button>

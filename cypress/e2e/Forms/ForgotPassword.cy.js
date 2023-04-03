@@ -19,6 +19,10 @@ describe("if user wanted to change his/her password he can visit here", () => {
     cy.visit("http://localhost:3000/product");
     cy.get("#userinfoClick").click();
     cy.get("#forgotClick").click();
+    const imageURL =
+      "https://images.unsplash.com/photo-1570288464059-9afc7a4e1e15?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8cGVyc29uJTIwc2hvY2tlZHxlbnwwfDF8MHx8&auto=format&fit=crop&w=500&q=60";
+    cy.get(`img[src="${imageURL}"]`).should("exist");
+
     // cy.url().should("include", "detail/1");
   });
   it("changing old password and old password is wrong", () => {

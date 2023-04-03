@@ -28,8 +28,7 @@ function UserProfile() {
     localStorage.setItem("user", JSON.stringify(updatedData));
     navigate("/login");
   };
-  const loggedUser = userData.find((user) => user.isLogin === true || []);
-
+  const loggedUser = userData.find((user) => user.isLogin === true);
   const initialValues = {
     // passing name attribute here for every input field
     first_name: loggedUser.first_name,
@@ -51,6 +50,7 @@ function UserProfile() {
           // console.log(item);
           if (item.isLogin === true) {
             if (activeEmail.some((item) => item.email === values.email)) {
+              console.log(item);
               toast.error("user already exist!");
               return {
                 ...item,
@@ -181,8 +181,7 @@ function UserProfile() {
                       </div>
                     </div>
                     <div className="modal-buttons   ">
-                      <button id="updateDetail" className="input-button" type="submit">
-                        
+                      <button className="input-button" type="submit">
                         Update
                       </button>
                       <div className="px-2">
@@ -190,7 +189,6 @@ function UserProfile() {
                           className="input-button "
                           variant="danger"
                           onClick={handleLogOut}
-                          id="logoutClick"
                         >
                           Logout
                         </Button>{" "}
@@ -200,7 +198,6 @@ function UserProfile() {
                       className="input-button mt-2 "
                       variant="danger"
                       onClick={handleUpdatePassword}
-                      id="forgotClick"
                     >
                       Update Password
                       <span className="px-1">

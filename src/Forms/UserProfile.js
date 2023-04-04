@@ -181,11 +181,11 @@ function UserProfile() {
                       </div>
                     </div>
                     <div className="modal-buttons   ">
-                      <button className="input-button" type="submit">
+                      <button id="updateDetail" className="input-button" type="submit">
                         Update
                       </button>
                       <div className="px-2">
-                        <Button
+                        <Button id="logoutClick"
                           className="input-button "
                           variant="danger"
                           onClick={handleLogOut}
@@ -195,6 +195,7 @@ function UserProfile() {
                       </div>
                     </div>
                     <Button
+                    id="forgotClick"
                       className="input-button mt-2 "
                       variant="danger"
                       onClick={handleUpdatePassword}

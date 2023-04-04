@@ -56,7 +56,7 @@ function Header() {
               </div>
             </Button>
           </div>
-          <Button href="" onClick={handleNavigate} variant="dark">
+          <Button id="userinfoClick" href="" onClick={handleNavigate} variant="dark">
             <CgProfile className="text-info" />
           </Button>
         </Form>
